@@ -19,7 +19,7 @@ class Game(Ursina):
     def create_map(self, MAP_SIZE):
         Entity(model='quad', scale=MAP_SIZE, position=(MAP_SIZE // 2, MAP_SIZE // 2, 0), color=color.dark_gray)
         Entity(model=Grid(MAP_SIZE, MAP_SIZE), scale=MAP_SIZE,
-               position=(MAP_SIZE // 2, MAP_SIZE // 2, -0.01), color=color.white)
+               position=(MAP_SIZE // 2, MAP_SIZE // 2, -0.01), color=color.black)
 
     def new_game(self):
         scene.clear()
@@ -45,7 +45,7 @@ class Game(Ursina):
         snake = self.snake.segment_positions
         if 0 < snake[-1][0] < self.MAP_SIZE and 0 < snake[-1][1] < self.MAP_SIZE and len(snake) == len(set(snake)):
                 return
-        print_on_screen('GAME OVER', position=(-0.7, 0.1), scale=10, duration=1)
+        # print_on_screen('GAME OVER', position=(-0.7, 0.1), scale=10, duration=1)
         self.snake.direction = Vec3(0, 0, 0)
         self.snake.permissions = dict.fromkeys(self.snake.permissions, 0)
         invoke(self.new_game, delay=1)
