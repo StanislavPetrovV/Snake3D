@@ -27,14 +27,16 @@ class Game(Ursina):
         self.apple = Apple(self.MAP_SIZE, model='sphere', color=color.red)
         self.snake = Snake(self.MAP_SIZE)
 
-    def input(self, key):
+    def input(self, key, is_raw=False):
+        super().input(key)
+        self.snake.control(key)
         if key == '2':
             camera.rotation_x = 0
             camera.position = (self.MAP_SIZE // 2, self.MAP_SIZE // 2, -50)
         elif key == '3':
             camera.position = (self.MAP_SIZE // 2, -20.5, -20)
             camera.rotation_x = -57
-        super().input(key)
+
 
     def check_apple_eaten(self):
         if self.snake.segment_positions[-1] == self.apple.position:

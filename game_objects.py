@@ -43,16 +43,15 @@ class Snake:
     def run(self):
         self.frame_counter += 1
         if not self.frame_counter % self.speed:
-            self.control()
             self.segment_positions.append(self.segment_positions[-1] + self.direction)
             self.segment_positions = self.segment_positions[-self.segment_length:]
             for segment, segment_position in zip(self.segment_entities, self.segment_positions):
                 segment.position = segment_position
 
-    def control(self):
-        for key in 'wasd':
-            if held_keys[key] and self.permissions[key]:
-                self.direction = self.directions[key]
+    def control(self, key):
+        for pressed_key in 'wasd':
+            if pressed_key == key and self.permissions[pressed_key]:
+                self.direction = self.directions[pressed_key]
                 self.permissions = dict.fromkeys(self.permissions, 1)
-                self.permissions[self.taboo_movement[key]] = 0
+                self.permissions[self.taboo_movement[pressed_key]] = 0
                 break
